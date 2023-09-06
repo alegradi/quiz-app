@@ -1,20 +1,18 @@
 import requests
+from setup import SetupInterface
 
-# All categories
-# parameters = {
-#     "amount": 10,
-#     "type": "boolean"
-# }
+question_data = []
 
-# IT
-parameters = {
-    "amount": 10,
-    "type": "boolean",
-    "category": 18
-}
 
-response = requests.get("https://opentdb.com/api.php", params=parameters)
-response.raise_for_status()
-data = response.json()
+def get_question_data():
+    global question_data
+    setup = SetupInterface()
+    parameters = setup.parameters
+    print(f"Parameters: {parameters}")  # Debug info
 
-question_data = data["results"]
+    response = requests.get("https://opentdb.com/api.php", params=parameters)
+    response.raise_for_status()
+    data = response.json()
+
+    question_data = data["results"]
+    print(f"Question data: {question_data}")  # Debug info
